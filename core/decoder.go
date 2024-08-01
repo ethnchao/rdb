@@ -412,7 +412,7 @@ func (dec *Decoder) parse(cb func(object model.RedisObject) bool) error {
 		}
 		key, err := dec.readString()
 		if err != nil {
-			return err
+			break
 		}
 		base := &model.BaseObject{
 			DB:  dbIndex,
@@ -425,7 +425,7 @@ func (dec *Decoder) parse(cb func(object model.RedisObject) bool) error {
 		}
 		obj, err := dec.readObject(b, base)
 		if err != nil {
-			return err
+			break
 		}
 		base.Size = memprofiler.SizeOfObject(obj)
 		base.Type = obj.GetType()
